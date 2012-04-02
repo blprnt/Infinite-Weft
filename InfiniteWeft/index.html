@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Infinite Weft</title>
+		<link rel="icon"  type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAQAAVzABAEAjBQAaDwYAWjUGAGE6CQBrQQ0ATS8PAFhAJwBUQC8AbFI6AHVXPACBZk4A4NrWAPb19QAAAAAAAMmZmZmZmgAJIwAAAAAAcMIjPjA+PjAKpxIuMDMzMAm0Ii4zMzMACaIiLt3dMAAJtyIuIzPQAAm0Un5yM+IzKLRkfncy4iIotRF+dyLkIiq0QX53F+EiGrQUTkd34iIatEVu7u5iIVrBVVRBRFRVbAtGZGZla2uwAMu7u7u8vADAAwAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA" />
+		<meta name="Generator" content="Processing" />
+		<!-- - - - - - - - - - - - - - - - - - - - - 
+		+
+		+    Wondering how this works? 
+		+
+		+    Go to: http://processing.org/
+		+    and: http://processingjs.org/
+		+
+		+ - - - - - - - - - - - - - - - - - - - - -->
+		<style type="text/css">
+		body {
+		  margin: 0px auto 0px auto; padding: 0px;
+		  background-color: #111; color: #bbb; line-height: normal;
+		  font-family: Lucida Grande, Lucida Sans, Arial, Helvetica Neue, Verdana, Geneva, sans-serif;
+		  font-size: 12px; font-weight: normal; text-decoration: none;
+	 	  line-height: 1.5em;
+		}
+		canvas { display: block; outline: 0px; margin-bottom: 0em; }
+		h1 {
+			font-size: 18px;
+			color:#FFF;
+		}
+		a {
+			color:#ABD4FC;
+			text-decoration:none;
+		}
+		#help {
+			position:absolute;
+			display:block;
+			padding:10px;
+			font-family: Helvetica Neue, Verdana, Geneva, sans-serif;
+			font-size:34px;
+			left:0px;
+			top:0px;
+			cursor:pointer;
+			background-color: #222222;
+		}
+		#info {
+			position:absolute;
+			display:none;
+			left:0px;
+			top:50px;
+			width:550px;
+			color:#EFEFEF;
+			background-color: #333333;
+			padding:10px;
+		}
+		
+		</style>
+		<!--[if lt IE 9]>
+			<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
+		<![endif]-->
+		<script type="text/javascript" src="dat.gui.min.js"></script>
+		<script src="processing.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		
+			var help = false;
+		
+			function getProcessingSketchID () {
+				
+				return 'InfiniteWeft';
+				
+			}
+			
+			function toggleHelp() {
+				help = !help;
+				document.getElementById("info").style.display = (help) ? "block":"none";
+				
+			}
+			
+			
+
+			
+	        </script>
+
+	</head>
+	<body>
+		
+			<div>
+				<canvas id="InfiniteWeft" data-processing-sources="InfiniteWeft.pde" 
+						width="100%" height="100%">
+					<p>Your browser does not support the canvas tag.</p>
+					<!-- Note: you can put any alternative content here. -->
+				</canvas>
+				<noscript>
+					<p>JavaScript is required to view the contents of this page.</p>
+				</noscript>
+			</div>
+			<div id="help" onclick="toggleHelp()">?</div>
+			<div id="info">
+		<h1>What is this?</h1>
+		<p>Infinite Weft is a weaving simulator that generates endless, non-repeating patterns.</p>
+		<p>It works the same way a real-life loom works - indeed, the patterns (called draw-downs in the weaving world) can be downloaded and used to make textiles.</p>
+		<p>Unlike a real-life loom, this one can weave endless patterns; it can literally weave forever without repeating itself. Currently the endless pattern is being generated using <a href="http://mathworld.wolfram.com/Rule30.html">Wolfram's Rule 30</a>.
+		Other methods of pattern generation are coming soon.</p>
+		
+		<h1>How does it work?</h1>
+		The simulator is built in <a href="http://processing.org">Processing</a>, and implemented in <a href="http://processingjs.org">Processing.js</a>.
+		You can see the source code <a href="InfiniteWeft.pde" target="_blank">here</a>.
+		If you're interested in weaving, check out <a href="http://en.wikipedia.org/wiki/Weaving">this introductory page</a>, or get lost down <a href="http://www.cs.arizona.edu/patterns/weaving/index.html">the rabbit hole</a> that is <a href="http://en.wikipedia.org/wiki/Ralph_Griswold">Ralph E. Griswold</a> and his amazing archive of weaving patterns, papers on weaving & mathematics, and other fascinating resources.
+		
+		<h1>Why?</h1>
+		<p>The art of hand-weaving is fading memory. Yet, it's incredibly fascinating from a mathematical perspective, and from the angle of computational history (<a href="http://en.wikipedia.org/wiki/Jacquard_loom">Jacquard looms</a> were a big influence on the first computers, and the binary logic of weaving is closely tied to the base logic of computation).</p>
+		
+		<p>Weaving also has a great deal of personal meaning to me. My mom, Diane Thorp, is a master weaver, and I think being surrounded by textiles and their underlying mathematics was a huge influence on me and my work. This project is an attempt to re-embrace some of those beginnings, a chance to work with my mother, and a foundation for more work with real, physical looms.</p>
+		
+		<h1>Contact</h1>
+		<p><a href="mailto:blprnt@blprnt.com">blprnt@blprnt.com</a></p>
+		<p><a href="http://twitter.com/blprnt">@blprnt</a></p>
+			</div>
+		
+		
+		<script>
+		        var controls = false;
+			var weft = "#ffffff";
+			var warp = "#ffffff";
+			var speed = 40;
+			var wwidth = 2;
+			var mode = 0;
+		
+			
+			function newColors() {
+				Processing.instances[0].nextHarness();
+			}
+			function backToggle() {
+				Processing.instances[0].toggleBack();
+			}
+			function toggleFlat() {
+				Processing.instances[0].toggleFlat();
+			}
+			function toggleDrawdown() {
+				Processing.instances[0].toggleControls();
+			}
+			
+			var gui = new dat.GUI();
+			
+			var f1 = gui.addFolder('Warp');
+			var widthControl = f1.add(window, 'wwidth', { Narrow: 1, Normal: 2, Wide: 4, Huge: 8 } ).name('width');
+			widthControl.onChange(function(value) {
+			  Processing.instances[0].setWidth(value);
+			});
+			
+			f1.add(window, 'newColors').name("random");
+			var colControl2 = f1.addColor(window, 'warp').name('solid');
+			colControl2.onChange(function(value) {
+			  Processing.instances[0].setWarp(value.substr(1,6));
+			});
+
+                        var f2 = gui.addFolder('Weft');
+			var colControl = f2.addColor(window, 'weft');
+			colControl.onChange(function(value) {
+			  Processing.instances[0].setWeft(value.substr(1,6));
+			});
+			
+			var f3 = gui.addFolder('Main');
+			var modeControl = f3.add(window, 'mode', {WolframRule10: 0, VonNeumann: 1});
+			modeControl.onChange(function(value) {
+			  Processing.instances[0].setMode(value);
+			});
+			
+			f3.add(window, 'backToggle').name("black/white");
+			f3.add(window, 'toggleFlat').name("flat/3D");
+			var speedControl = f3.add(window, 'speed', { Stopped: 100000, Slow: 40, Fast: 10, Faster: 1 } );
+			speedControl.onChange(function(value) {
+			  Processing.instances[0].setAdvance(value);
+			});
+
+			var controller = f3.add(window, 'controls').name("drawdowns");
+			controller.onChange(function(value) {
+			  Processing.instances[0].toggleControls();
+			});
+
+			f3.domElement.style.left = "0px";
+			f3.open();
+			
+			gui.close();
+			
+		</script>
+	</body>
+</html>
